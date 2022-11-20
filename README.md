@@ -1,12 +1,16 @@
 # nvme_exporter
+
 Prometheus exporter for nvme smart-log metrics
 
 ## Building and running
 
 ### Build
 
-```
+```bash
 go build .
+or
+# https://stackoverflow.com/questions/65120136/lib64-libc-so-6-version-glibc-2-32-not-found
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o nvme_exporter main.go
 ```
 
 A sample Dockerfile and docker-compose.yaml are provided.
@@ -15,21 +19,21 @@ A sample Dockerfile and docker-compose.yaml are provided.
 
 Running the exporter requires the nvme-cli package to be installed on the host.
 
-```
+```bash
 ./nvme_exporter <flags>
 ```
 
 #### Flags
 
-| Name | Description |
-|----|-------------------------------------------------|
-port | Listen port number. Type: String. Default: 9998 |
+Name | Description
+---- | -----------------------------------------------
+port | Listen port number. Type: String. Default: 9998
 
 ### Sample Output
 
 Golang and process metrics have been removed from the sample.
 
-```
+```log
 # HELP nvme_avail_spare Normalized percentage of remaining spare capacity available
 # TYPE nvme_avail_spare gauge
 nvme_avail_spare{device="/dev/nvme0n1"} 100
@@ -146,4 +150,4 @@ nvme_warning_temp_time{device="/dev/nvme2n1"} 2
 
 A sample Grafana dashboard is available:
 
-[https://grafana.com/grafana/dashboards/14706](https://grafana.com/grafana/dashboards/14706)
+<https://grafana.com/grafana/dashboards/14706>
